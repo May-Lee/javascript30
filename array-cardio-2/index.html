@@ -40,15 +40,15 @@
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
-    const delComment = comments.find(comment => comment.id === 823423);
-    const deleteMe = delComment.id;
-    console.log(deleteMe);
-    comments.splice(deleteMe, 1);
-    console.table(comments);
+    const delComment = comments.findIndex(comment => comment.id === 823423);
+    console.log(delComment);
+
+    // comments.splice(delComment, 1);
+    // console.table(comments);
 
     const newComments = [
-      ...comments.splice(0, deleteMe),
-      ...comments.splice(deleteMe +1)
+      ...comments.slice(0, delComment),
+      ...comments.slice(delComment +1)
     ];
 
     console.table(newComments);
