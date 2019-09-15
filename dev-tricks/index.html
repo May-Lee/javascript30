@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    // you can use the inspector to select something and
+    // choose "break on" from the drop down menu and choose
+    // "change attribute" to find where JavaScript is running
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+    // Regular
+    let someVar = 5;
+    console.log(someVar);
+
+    // Interpolated
+    console.log('I am a %s string!', 'Yo');
+    console.log(`I am a ${someVar}`);
+
+    // Styled
+    console.log('%c I am some great text', 'font-size:50px; background:red;');
+    // warning!
+    console.warn('It\'s not a threat it\'s a warning, be careful with me');
+    // Error :|
+    console.error('You fukked uuuuupppp');
+    // Info
+    console.info('1 in 4 of us is afflicted with violent self-loathing');
+    // Testing
+    console.assert(someVar === 5, 'That is incorrect!');
+    console.assert(someVar === 3, 'SomeVar equals 5!');
+    // clearing - clear the console - it will fuck w/ppl
+    //console.clear();
+
+    // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.log(p);
+    console.dir(p); //shows a list of everything that can be called on that element
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old `);
+      console.groupEnd(`${dog.name}`);
+    })
+    // counting
+    console.count('Bob');
+    console.count('Alice');
+    console.count('Bob');
+    console.count('Bob');
+    // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+  </script>
+</body>
+</html>
