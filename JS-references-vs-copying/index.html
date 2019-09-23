@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    console.log(age, age2);
+    age = 200;
+    console.log(age, age2);
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+    // and we want to make a copy of it.
+    const team = players;
+    // You might think we can just do something like this:
+    console.log(team, players);
+    // however what happens when we update that array?
+    team[3] = 'Lux';
+    // now here is the problem!
+    // oh no - we have edited the original array too!
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+    // So, how do we fix this? We take a copy instead!
+    // one way
+    console.log(team);
+    const team2 = players.slice();
+    // or create a new array and concat the old one in
+    const team3 = [].concat(players);
+    // or use the new ES6 Spread
+    const team4 = [...players];
+    // now when we update it, the original one isn't changed
+    team4[3] ='new one';
+    console.log(team4);
+    const team5 = Array.from(players);
+    console.log(team5);
+    // The same thing goes for objects, let's say we have a person object
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+    // and think we make a copy:
+    const captain = person;
+    person.number = 99; //this assignment adds a key number with value 99 to original person object
+    // how do we take a copy instead? we use Object.assign({}, objectName, { key1: value1, key2: alue2});
+    const cap2 = Object.assign({}, person, { number: 99, age: 12});
+    console.log(cap2);
+    // We will hopefully soon see the object ...spread
+    // const cap3 = {...person};
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects.
+    // So if your object has another object nested inside it, after assigning, it will mean any changes to the 2nd layer will be also assigned to the reference
+    //lodash has a cloneDeep method, but you should think twice before using it.
+    // You can also parse it from JSON into a string, then back to JSON:
+
+    const dev2 = JSON.parse(JSON.stringify(wes));
+    //now you could do dev2.social.twitter = '@coolman' <--in the example
+    //basically, you stringify the object into JSON and then parse it immediately back into an object
+
+  </script>
+
+</body>
+</html>
